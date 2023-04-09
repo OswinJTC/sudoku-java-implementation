@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+
+
 /**
  * The main Sudoku program
  */
@@ -12,34 +14,59 @@ public class SudokuMain extends JFrame {
 
    // private variables
    GameBoardPanel board = new GameBoardPanel();
-   JButton btnNewGame = new JButton("New Game");
+   JButton btnHomePage = new JButton("Back to Home");
+   
 
    // Constructor
    public SudokuMain() {
-      Container cp = getContentPane();
-      cp.setLayout(new BorderLayout());
+	   
+	    JPanel main_Panel = new JPanel(); 
+	    main_Panel.setLayout(new BorderLayout());
+	    
+	    
+	    
+	    //======= top ========
+	    JPanel GB_Panel = new JPanel();
+	    main_Panel.add(GB_Panel, BorderLayout.NORTH);
+	    GB_Panel.add(board);
 
-      cp.add(board, BorderLayout.CENTER);
+	    //=======
 
-      // Add a button to the south to re-start the game via board.newGame()
-      cp.add(btnNewGame, BorderLayout.SOUTH);
-      ButtonListener listener = new ButtonListener();
-      btnNewGame.addActionListener(listener);
-      
-      // Initialize the game board to start the game
-      board.newGame();
+	    
+        //======= bottom =======
+	    JPanel bottom_panel = new JPanel();
+	    bottom_panel.add(btnHomePage);
+	    //=======
+	    
+	    
+	    
+	    
+	    main_Panel.add(bottom_panel, BorderLayout.CENTER);
+	    
+	    
+	    ButtonListener listener = new ButtonListener();
+	    btnHomePage.addActionListener(listener);
 
-      pack();     // Pack the UI components, instead of using setSize()//做什麼?
-      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // to handle window-closing
-      setTitle("Sudoku");
-      setVisible(true);
-   }
-   
+	    board.newGame();
+	    
+	    
+        main_Panel.setBackground(Color.YELLOW);
+	    add(main_Panel);
+	    pack();
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setTitle("Sudoku");
+	    setVisible(true);
+	}
+
    
    private class ButtonListener implements ActionListener {
 	      @Override
 	      public void actionPerformed(ActionEvent e) {
-	    	  board.newGame();
+	    	  SudokuWelcomePage welcomePage = new SudokuWelcomePage();
+	          welcomePage.setLocationRelativeTo(null); // center window relative to screen
+	          welcomePage.setVisible(true);
+	          dispose();
+	    	  
 	      }
    }
 	
@@ -51,6 +78,7 @@ public class SudokuMain extends JFrame {
 	   SwingUtilities.invokeLater(new Runnable(){
 			public void run() {
 				new SudokuMain();
+				//SudokuWelcomePage welcomePage = new SudokuWelcomePage()
 			}
 		}); 
 	   

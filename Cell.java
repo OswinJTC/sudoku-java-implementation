@@ -2,11 +2,13 @@ package sudoku;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
+import java.text.NumberFormat;
+import javax.swing.JFormattedTextField;
 /**
  * The Cell class model the cells of the Sudoku puzzle, by customizing (subclass)
  * the javax.swing.JTextField to include row/column, puzzle number and status.
  */
-public class Cell extends JTextField {
+public class Cell extends JFormattedTextField{
    private static final long serialVersionUID = 1L;  // to prevent serial warning
 
    public static final Color BG_GIVEN = new Color(240, 240, 240); // RGB
@@ -15,7 +17,7 @@ public class Cell extends JTextField {
    public static final Color BG_TO_GUESS  = Color.YELLOW;
    public static final Color BG_CORRECT_GUESS = new Color(0, 216, 0);
    public static final Color BG_WRONG_GUESS   = new Color(216, 0, 0);
-   public static final Font FONT_NUMBERS = new Font("OCR A Extended", Font.PLAIN, 28);
+   public static final Font FONT_NUMBERS = new Font("OCR A Extended", Font.PLAIN, 30);
 
 
    int row, col;
@@ -23,17 +25,26 @@ public class Cell extends JTextField {
    CellStatus status;
 
    public Cell(int row, int col) {
-      super();   // JTextField
+	  super(new JFormattedTextField(NumberFormat.getIntegerInstance()));
       this.row = row;
       this.col = col;
       // Inherited from JTextField: Beautify all the cells once for all
       super.setHorizontalAlignment(JTextField.CENTER);
       super.setFont(FONT_NUMBERS);
    }
+   
+   public JTextField getTextField() {
+       return this;
+   }
+   
 
   
    
-   public void newGame(int number, boolean isGiven) {
+   public void setNumber(int number) {
+	this.number = number;
+}
+
+public void newGame(int number, boolean isGiven) {
       this.number = number;
       if (isGiven) {
     	   status = CellStatus.GIVEN;
@@ -63,6 +74,6 @@ public class Cell extends JTextField {
          super.setBackground(BG_CORRECT_GUESS);
       } else if (status == CellStatus.WRONG_GUESS) {    // from TO_GUESS
          super.setBackground(BG_WRONG_GUESS);
-      }
+      } 
    }
 }
