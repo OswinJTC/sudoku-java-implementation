@@ -8,7 +8,7 @@ import javax.swing.JFormattedTextField;
  * The Cell class model the cells of the Sudoku puzzle, by customizing (subclass)
  * the javax.swing.JTextField to include row/column, puzzle number and status.
  */
-public class Cell extends JFormattedTextField{
+public class Cell extends JTextField{
    private static final long serialVersionUID = 1L;  // to prevent serial warning
 
    public static final Color BG_GIVEN = new Color(240, 240, 240); // RGB
@@ -25,7 +25,7 @@ public class Cell extends JFormattedTextField{
    CellStatus status;
 
    public Cell(int row, int col) {
-	  super(new JFormattedTextField(NumberFormat.getIntegerInstance()));
+	  super();
       this.row = row;
       this.col = col;
       // Inherited from JTextField: Beautify all the cells once for all

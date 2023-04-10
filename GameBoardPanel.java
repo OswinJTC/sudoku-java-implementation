@@ -4,13 +4,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import javax.swing.JTextField;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.AbstractDocument;
-import java.text.ParseException;
-
 
 
 
@@ -23,17 +16,20 @@ public class GameBoardPanel extends JPanel {
    public static final int BOARD_WIDTH  = CELL_SIZE * GRID_SIZE;
    public static final int BOARD_HEIGHT = CELL_SIZE * GRID_SIZE; // Board width/height in pixels
    private JButton[] buttons;
-   private MistakesCounter mistakeCounter = new MistakesCounter(); // Create a new MistakeCounter object
+   private MistakesCounter mistakeCounter; // Create a new MistakeCounter object
    public Cell[][] cells = new Cell[GRID_SIZE][GRID_SIZE];//宣告九乘九的格子，以cell為單元
    private Puzzle my_puzzle = new Puzzle();//宣告九乘九的格子的邏輯版
    
    public Cell currentlyFocusedCell = null;
+   
+  
 
-   public GameBoardPanel() {
+public GameBoardPanel(int difficulty_reference_index_time, int difficulty_reference_index_chances) {
 	   
-	  
+
 	 JPanel GB_main_Panel = new JPanel(new BorderLayout());
-	 CountdownClock countdownclock = new CountdownClock(60);
+	 mistakeCounter = new MistakesCounter(difficulty_reference_index_chances);
+	 CountdownClock countdownclock = new CountdownClock(difficulty_reference_index_time);
 	   
 	 //======= GB_top ========
 	 JPanel GB_top_Panel = new JPanel();
@@ -124,18 +120,19 @@ public class GameBoardPanel extends JPanel {
       
    }
    
-   
-
-   public void newGame() {
+   public void newGame(int difficulty_reference_index) {
 	   
-      my_puzzle.newPuzzle(2);//這個2沒用啊
+	      my_puzzle.newPuzzle(difficulty_reference_index);
+	      
 
-      for (int row = 0; row < GRID_SIZE; ++row) {
-         for (int col = 0; col < GRID_SIZE; ++col) {
-            cells[row][col].newGame(my_puzzle.numbers[row][col], my_puzzle.isGiven[row][col]);
-         }
-      }
-   }
+	      for (int row = 0; row < GRID_SIZE; ++row) {
+	         for (int col = 0; col < GRID_SIZE; ++col) {
+	            cells[row][col].newGame(my_puzzle.numbers[row][col], my_puzzle.isGiven[row][col]);
+	         }
+	      }
+	   }
+   
+   
    
   
    public boolean isSolved() {
@@ -158,7 +155,7 @@ public class GameBoardPanel extends JPanel {
     	  Cell sourceCell = (Cell)(e.getSource());//讓我們可以得到真正cell裡的所有資訊
     	  
         	int numberIn = Integer.parseInt(sourceCell.getText());// Retrieve the int entered
-            System.out.println("You entered " + numberIn);// For debugging
+            System.out.printf("You entered %d (for debugging)\n", numberIn);// For debugging
 
       
              //* [TODO 5] (later - after TODO 3 and 4)

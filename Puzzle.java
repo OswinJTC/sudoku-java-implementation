@@ -6,11 +6,10 @@ public class Puzzle {
    boolean[][] isGiven = new boolean[GameBoardPanel.GRID_SIZE][GameBoardPanel.GRID_SIZE];
    private static final int NUM_PUZZLES = 10;
    private int puzzle_selection = 0;
-   /*
-    * easy=>20 , medium=>30 , hard=>40
-    */
-
-   // Constructor
+   
+  
+   
+// Constructor
    public Puzzle() {
       super();
    }
@@ -19,7 +18,7 @@ public class Puzzle {
    // Generate a new puzzle given the number of cells to be guessed, which can be used
    //  to control the difficulty level.
    // This method shall set (or update) the arrays numbers and isGiven
-   public void newPuzzle(int cellsToGuess) {
+   public void newPuzzle(int difficulty_reference_index) {
       // I hardcode a puzzle here for illustration and testing.
 	   
 	   Random rand = new Random();
@@ -194,12 +193,12 @@ public class Puzzle {
       
      //try with the easy one first...
       
-      for (int i = 0; i < 20; i++) {
+      for (int i = 0; i < difficulty_reference_index; i++) {
           index = rand.nextInt(81);
           oneDArray[index] = 0;
       }
       
-      
+      System.out.println(difficulty_reference_index + (" empty cells(for debugging)"));
 
       // Copy from hardcodedIsGiven into array "isGiven"
       for (int row = 0; row < GameBoardPanel.GRID_SIZE; ++row) {

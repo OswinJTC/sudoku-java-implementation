@@ -6,23 +6,25 @@ public class MistakesCounter extends JPanel {
     
     private JLabel label;
     private int count;
+    private int chances_max;
     
-    public MistakesCounter() {
+    public MistakesCounter(int chances) {
     	
+    	chances_max = chances;
         count = 0;
         
-        label = new JLabel(String.format("Mistake Count: %d/3", count));
+        label = new JLabel(String.format("Mistake Count: %d/%d", count, chances_max));
         add(label);
     }
     
     public void increment() {
         
-    	if(count != 3) { //不要讓人家發現可以顯示錯誤次數高於上限
+    	if(count != chances_max) { //不要讓人家發現可以顯示錯誤次數高於上限
     		count++;
     	}
-        label.setText(String.format("Mistake Count: %d/3", count));
+        label.setText(String.format("Mistake Count: %d/%d", count, chances_max));
         
-        if (count >= 3) { // check if count has reached the maximum
+        if (count >= chances_max) { // check if count has reached the maximum
             JOptionPane.showMessageDialog(this, "You have reached the maximum number of mistakes. You have failed."); // show notification
             System.exit(0);
         }

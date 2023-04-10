@@ -13,47 +13,57 @@ public class SudokuMain extends JFrame {
     	
         welcomePage = new WelcomePage();
         
-        welcomePage.addEasyButtonListener(new ActionListener() {
+        welcomePage.addButtonsListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Easy button clicked");
+            	
                 welcomePage.setVisible(false); // hide the welcome page
                 remove(welcomePage);
-                GamePageMain gamePage = new GamePageMain();
-                add(gamePage);
+                
+                String get_command = e.getActionCommand();
+    			if(get_command.equals("Easy")) {
+    				System.out.println("Easy button clicked(for debugging)");
+    				GamePageMain gamePage = new GamePageMain(20, 360, 8); //easy game => 20 empty cells
+    				add(gamePage);
+    				
+    				
+    			}else if(get_command.equals("Medium")) {
+    				System.out.println("Medium button clicked(for debugging)");
+    				GamePageMain gamePage = new GamePageMain(50, 330, 4); //medium game => 50 empty cells
+    				add(gamePage);
+    				
+    				
+    			}else if(get_command.equals("Hard")){
+    				System.out.println("Hard button clicked(for debugging)");
+    				GamePageMain gamePage = new GamePageMain(75, 300, 2); //hard game => 75 empty cells
+    				add(gamePage);
+    				
+    				gamePage.addHomeButtonsListener(new ActionListener() {
+    		            @Override
+    		            public void actionPerformed(ActionEvent e) {
+    		            	
+    		                gamePage.setVisible(false);
+    		                remove(gamePage);   
+    		                add(welcomePage);
+    		                welcomePage.setVisible(true);
+    		                
+    		                pack();
+    		                //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    		                setTitle("Sudoku");       
+    		                revalidate();
+    		                repaint();
+    		            }
+    		        });
+    			}
+
+               
                 pack();
                 revalidate();
                 repaint();
             }
         });
 
-        welcomePage.addMediumButtonListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Medium button clicked");
-                welcomePage.setVisible(false); // hide the welcome page
-                remove(welcomePage);
-                GamePageMain gamePage = new GamePageMain();
-                add(gamePage);
-                pack();
-                revalidate();
-                repaint();
-            }
-        });
-
-        welcomePage.addHardButtonListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Hard button clicked");
-                welcomePage.setVisible(false); // hide the welcome page
-                remove(welcomePage);
-                GamePageMain gamePage = new GamePageMain();
-                add(gamePage);
-                pack();
-                revalidate();
-                repaint();
-            }
-        });
+        
         
         add(welcomePage);
         pack();
@@ -70,38 +80,39 @@ public class SudokuMain extends JFrame {
         private JButton hardButton;
         
         public WelcomePage() {
-            // Set up the frame
-            setTitle("Sudoku Warriors");
+        	
+        	setTitle("Sudoku Warriors");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setSize(400, 400);
             setLocationRelativeTo(null);
+            getContentPane().setBackground(new Color(69, 142, 227)); // set the background color of the frame
             
             // Set up the components
             JLabel nameLabel = new JLabel("Sudoku Warriors");
             nameLabel.setFont(new Font("Arial", Font.BOLD, 36));
             nameLabel.setHorizontalAlignment(JLabel.CENTER);
-            nameLabel.setForeground(Color.WHITE);
+            nameLabel.setForeground(Color.BLACK);
             
             JLabel quoteLabel = new JLabel("Try the Numbers Game, Minus the Math");
             quoteLabel.setFont(new Font("Arial", Font.PLAIN, 18));
             quoteLabel.setHorizontalAlignment(JLabel.CENTER);
-            quoteLabel.setForeground(Color.WHITE);
+            quoteLabel.setForeground(Color.BLACK);
             
             easyButton = new JButton("Easy");
-            easyButton.setBackground(new Color(69, 142, 227)); // blue
-            easyButton.setForeground(Color.WHITE);
+            easyButton.setBackground(new Color(51, 51, 51)); // dark gray
+            easyButton.setForeground(Color.BLACK);
             easyButton.setFont(new Font("Arial", Font.BOLD, 18));
             easyButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
             
             mediumButton = new JButton("Medium");
-            mediumButton.setBackground(new Color(248, 148, 6)); // orange
-            mediumButton.setForeground(Color.WHITE);
+            mediumButton.setBackground(new Color(51, 51, 51)); // dark gray
+            mediumButton.setForeground(Color.BLACK);
             mediumButton.setFont(new Font("Arial", Font.BOLD, 18));
             mediumButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
             
             hardButton = new JButton("Hard");
-            hardButton.setBackground(new Color(255, 62, 62)); // red
-            hardButton.setForeground(Color.WHITE);
+            hardButton.setBackground(new Color(51, 51, 51)); // dark gray
+            hardButton.setForeground(Color.BLACK);
             hardButton.setFont(new Font("Arial", Font.BOLD, 18));
             hardButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
             
@@ -128,60 +139,38 @@ public class SudokuMain extends JFrame {
             // Show the frame
             setLayout(null); // use absolute positioning
             setVisible(true);
+        	
             
-            easyButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // handle easy button click
-                    System.out.println("Easy button clicked");
-                }
-            });
-
-            mediumButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // handle medium button click
-                    System.out.println("Medium button clicked");
-                }
-            });
-
-            hardButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // handle hard button click
-                    System.out.println("Hard button clicked");
-                }
-            });
+        
         }
         
-        public void addEasyButtonListener(ActionListener listener) {
+        public void addButtonsListener(ActionListener listener) {
             easyButton.addActionListener(listener);
-        }
-
-        public void addMediumButtonListener(ActionListener listener) {
             mediumButton.addActionListener(listener);
-        }
-
-        public void addHardButtonListener(ActionListener listener) {
             hardButton.addActionListener(listener);
         }
+
+      
+        
         
        
         
     }
     
+    
     public class GamePageMain extends JFrame {
         private static final long serialVersionUID = 1L;
 
         
-        private GameBoardPanel board = new GameBoardPanel();
+        private GameBoardPanel board;
         private JButton btnHomePage = new JButton("Back to Home");
      
 
         // Constructor
-        public GamePageMain() {
+        public GamePageMain(int difficulty_reference_index, int difficulty_reference_index_time,  int difficulty_reference_index_chances) {
           
-
+        	board = new GameBoardPanel(difficulty_reference_index_time, difficulty_reference_index_chances);
+        	
             JPanel main_Panel = new JPanel();
             main_Panel.setLayout(new BorderLayout());
 
@@ -189,6 +178,8 @@ public class SudokuMain extends JFrame {
             JPanel GB_Panel = new JPanel();
             main_Panel.add(GB_Panel, BorderLayout.NORTH);
             GB_Panel.add(board);
+            
+            
 
             //======= bottom =======
             JPanel bottom_panel = new JPanel();
@@ -199,7 +190,8 @@ public class SudokuMain extends JFrame {
             //ButtonListener listener = new ButtonListener();
             //btnHomePage.addActionListener(listener);
 
-            board.newGame();
+            board.newGame(difficulty_reference_index);
+          
 
             main_Panel.setBackground(Color.YELLOW);
             add(main_Panel);
@@ -208,6 +200,12 @@ public class SudokuMain extends JFrame {
             setTitle("Sudoku");
             setVisible(true);
        }
+        
+        public void addHomeButtonsListener(ActionListener listener) {
+        	
+        	btnHomePage.addActionListener(listener);
+            
+        }
 
   
     
@@ -220,6 +218,8 @@ public class SudokuMain extends JFrame {
                 new SudokuMain();
             }
         });
+        
+        
     }
 }
 
