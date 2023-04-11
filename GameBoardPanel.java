@@ -17,20 +17,28 @@ public class GameBoardPanel extends JPanel {
    public static final int BOARD_HEIGHT = CELL_SIZE * GRID_SIZE; // Board width/height in pixels
    private JButton[] buttons;
    private MistakesCounter mistakeCounter; // Create a new MistakeCounter object
+   private CountdownClock countdownclock; // Create a new MistakeCounter object
    public Cell[][] cells = new Cell[GRID_SIZE][GRID_SIZE];//宣告九乘九的格子，以cell為單元
    private Puzzle my_puzzle = new Puzzle();//宣告九乘九的格子的邏輯版
    
    public Cell currentlyFocusedCell = null;
    
+   public CountdownClock getCountdownClock() {
+	   return countdownclock;
+   }
   
+ 
 
 public GameBoardPanel(int difficulty_reference_index_time, int difficulty_reference_index_chances) {
+	
+	
 	   
 
 	 JPanel GB_main_Panel = new JPanel(new BorderLayout());
 	 mistakeCounter = new MistakesCounter(difficulty_reference_index_chances);
-	 CountdownClock countdownclock = new CountdownClock(difficulty_reference_index_time);
-	   
+	 countdownclock = new CountdownClock(difficulty_reference_index_time);
+
+	 
 	 //======= GB_top ========
 	 JPanel GB_top_Panel = new JPanel();
 	 GB_top_Panel.setLayout(new GridLayout(1, 2));
@@ -38,6 +46,7 @@ public GameBoardPanel(int difficulty_reference_index_time, int difficulty_refere
 
 	 GB_top_Panel.add(mistakeCounter);
 	 GB_top_Panel.add(countdownclock);
+	 
 	 //========================
 	   
 	 
@@ -107,6 +116,7 @@ public GameBoardPanel(int difficulty_reference_index_time, int difficulty_refere
      
      //===============================
      
+  
       
       
       GB_main_Panel.add(GB_top_Panel, BorderLayout.NORTH);
@@ -119,6 +129,8 @@ public GameBoardPanel(int difficulty_reference_index_time, int difficulty_refere
       
       
    }
+
+
    
    public void newGame(int difficulty_reference_index) {
 	   
