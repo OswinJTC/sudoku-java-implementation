@@ -2,8 +2,8 @@ package sudoku;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
-import java.text.NumberFormat;
-import javax.swing.JFormattedTextField;
+//import java.text.NumberFormat;
+//import javax.swing.JFormattedTextField;
 /**
  * The Cell class model the cells of the Sudoku puzzle, by customizing (subclass)
  * the javax.swing.JTextField to include row/column, puzzle number and status.
@@ -15,8 +15,8 @@ public class Cell extends JTextField{
    public static final Color FG_GIVEN = Color.BLACK;
    public static final Color FG_NOT_GIVEN = Color.GRAY;
    public static final Color BG_TO_GUESS  = Color.YELLOW;
-   public static final Color BG_CORRECT_GUESS = new Color(0, 216, 0);
-   public static final Color BG_WRONG_GUESS   = new Color(216, 0, 0);
+   public static final Color BG_CORRECT_GUESS = Color.GREEN ;
+   public static final Color BG_WRONG_GUESS   = Color.RED;
    public static final Font FONT_NUMBERS = new Font("OCR A Extended", Font.PLAIN, 30);
 
 
@@ -37,14 +37,11 @@ public class Cell extends JTextField{
        return this;
    }
    
-
-  
-   
    public void setNumber(int number) {
 	this.number = number;
-}
+   }
 
-public void newGame(int number, boolean isGiven) {
+   public void newGame(int number, boolean isGiven) {
       this.number = number;
       if (isGiven) {
     	   status = CellStatus.GIVEN;
@@ -54,9 +51,7 @@ public void newGame(int number, boolean isGiven) {
       paint();    // paint itself
    }
 
-  
-   
-   
+ 
    public void paint() {
       if (status == CellStatus.GIVEN) {
          // Inherited from JTextField: Set display properties
@@ -76,4 +71,5 @@ public void newGame(int number, boolean isGiven) {
          super.setBackground(BG_WRONG_GUESS);
       } 
    }
+   
 }

@@ -1,4 +1,7 @@
 package sudoku;
+import java.awt.Font;
+import java.awt.Color;
+
 import javax.swing.*;
 
 public class MistakesCounter extends JPanel {
@@ -15,6 +18,8 @@ public class MistakesCounter extends JPanel {
         
         label = new JLabel(String.format("Mistake Count: %d/%d", count, chances_max));
         add(label);
+        label.setFont(new Font("Verdana", Font.BOLD, 22));
+        label.setForeground(Color.WHITE);
     }
     
     public void increment() {
@@ -33,4 +38,5 @@ public class MistakesCounter extends JPanel {
     public int getCount() {
         return count;
     }
+
 }

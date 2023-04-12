@@ -37,10 +37,4 @@ public class MusicPlayer {
         clip.stop(); // stops the music
     }
     
-    /*
-    public void Specific_play() {
-        clip.setFramePosition((int)(2 * clip.getFormat().getFrameRate())); // start playing at 2 seconds
-        clip.loop((int)((32 - 2) * clip.getFormat().getFrameRate())); // play from 2 to 32 seconds
-    }
-    */
 }

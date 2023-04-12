@@ -2,7 +2,7 @@ package sudoku;
 import java.awt.*;
 import java.awt.event.*;
 
-import javax.sound.sampled.Clip;
+//import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 
@@ -15,11 +15,10 @@ public class SudokuMain extends JFrame {
     
     public SudokuMain() {
     	
-    	
         welcomePage = new WelcomePage();
         
-        
-        welcomePage.addButtonsListener(new ActionListener() {
+        //==================== difficulty choosing ====================
+        welcomePage.addDifficultyButtonsListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	
@@ -29,29 +28,23 @@ public class SudokuMain extends JFrame {
                 remove(welcomePage);
                 
                 
-                
-                
                 String get_command = e.getActionCommand();
     			if(get_command.equals("Easy")) {
     				System.out.println("Easy button clicked(for debugging)");
     				GamePageMain gamePage = new GamePageMain(welcomePage ,20, 360, 8); //easy game => 20 empty cells
     				add(gamePage);
     				
-    				
     			}else if(get_command.equals("Medium")) {
     				System.out.println("Medium button clicked(for debugging)");
     				GamePageMain gamePage = new GamePageMain(welcomePage, 50, 330, 4); //medium game => 50 empty cells
-    				add(gamePage);
-    				
+    				add(gamePage);	
     				
     			}else if(get_command.equals("Hard")){
     				System.out.println("Hard button clicked(for debugging)");
-    				GamePageMain gamePage = new GamePageMain(welcomePage,75, 300, 2); //hard game => 75 empty cells
+    				GamePageMain gamePage = new GamePageMain(welcomePage,75, 40, 2); //hard game => 75 empty cells
     				add(gamePage);
     				
-    				
     			}
-
     			
     			remove(welcomePage);
                 pack();
@@ -60,9 +53,8 @@ public class SudokuMain extends JFrame {
             }
         });
         
-        
+        //===================================================================
 
-        
         
         add(welcomePage);
         pack();
@@ -70,37 +62,28 @@ public class SudokuMain extends JFrame {
         setTitle("Sudoku");
         setVisible(true);
        
-        
-        
     }
     
   
     
     public class WelcomePage extends JFrame {
     	
-    	private JButton easyButton;
+    	private static final long serialVersionUID = 1L;
+		private JButton easyButton;
         private JButton mediumButton;
         private JButton hardButton;
         
         public WelcomePage() {
         	
-        	
-        	
         	HomeMusic = new MusicPlayer("/Users/OswinChen/Desktop/HomeMusic.wav"); //play the music
         	HomeMusic.HomeMusicplay();
         	
-        	// Set up the background image
-            ImageIcon backgroundImage = new ImageIcon("/Users/OswinChen/Desktop/home_background.jpeg");
-            JLabel backgroundLabel = new JLabel(backgroundImage);
-            backgroundLabel.setBounds(0, 0, getWidth(), getHeight());
-            add(backgroundLabel);
             
         	setTitle("Sudoku Warriors");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setSize(500, 500);
-            stabalization();
-            //getContentPane().setBackground(new Color(255, 234, 167)); // set the background color of the frame
-            
+      
+         
         	
             // Set up the components
             JLabel nameLabel = new JLabel("Sudoku Warriors");
@@ -157,29 +140,7 @@ public class SudokuMain extends JFrame {
         
         }
         
-        public void stabalization() {
-            // ...
-            
-            // Get the screen dimensions
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            int screenWidth = screenSize.width;
-            int screenHeight = screenSize.height;
-
-            // Calculate the x and y position of the frame
-            int frameWidth = getWidth();
-            int frameHeight = getHeight();
-            int x = (screenWidth - frameWidth) / 2;
-            int y = (screenHeight - frameHeight) / 2;
-
-            // Set the location of the frame
-            setLocation(x, y);
-
-            // ...
-        }
-        
-       
-        
-        public void addButtonsListener(ActionListener listener) {
+        public void addDifficultyButtonsListener(ActionListener listener) {
             easyButton.addActionListener(listener);
             mediumButton.addActionListener(listener);
             hardButton.addActionListener(listener);
@@ -197,16 +158,11 @@ public class SudokuMain extends JFrame {
         //private SudokuMain sudokuMain;
         private WelcomePage welcomepage;
         
-       
-
-        
-      
         // Constructor
         public GamePageMain(SudokuMain.WelcomePage welcomepage_index, int difficulty_reference_index, int difficulty_reference_index_time,  int difficulty_reference_index_chances) {
-          
-        	stabalization();
+   
         	//setLocationRelativeTo(null);
-        	this.welcomepage = welcomepage_index;
+        	this.setWelcomepage(welcomepage_index);
         	
         	board = new GameBoardPanel(difficulty_reference_index_time, difficulty_reference_index_chances);
         	
@@ -223,16 +179,22 @@ public class SudokuMain extends JFrame {
             //======= bottom =======
             JPanel bottom_panel = new JPanel();
             bottom_panel.add(btnHomePage);
-
+            //bottom_panel.setBackground(Color.YELLOW);
+            
             main_Panel.add(bottom_panel, BorderLayout.CENTER);
 
             HomeButtonListener listener = new HomeButtonListener();
             btnHomePage.addActionListener(listener);
+           
+            btnHomePage.setFont(new Font("Times New Roman", Font.BOLD, 22));
+            btnHomePage.setOpaque(true);
+            btnHomePage.setBackground(new Color(210, 180, 140));
+            btnHomePage.setForeground(Color.BLACK);
+            btnHomePage.setPreferredSize(new Dimension(200, 50));
+            btnHomePage.setBorder(BorderFactory.createLineBorder(new Color(150,75,0), 3));
             
             board.newGame(difficulty_reference_index);
-            
 
-            main_Panel.setBackground(Color.YELLOW);
             add(main_Panel);
             pack();
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -240,32 +202,22 @@ public class SudokuMain extends JFrame {
             setVisible(true);
             
        }
-        
-        
-        public void stabalization() {
-            // ...
-            
-            // Get the screen dimensions
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            int screenWidth = screenSize.width;
-            int screenHeight = screenSize.height;
+       
+        //============== getters & setters ================
+        public WelcomePage getWelcomepage() {
+			return welcomepage;
+		}
 
-            // Calculate the x and y position of the frame
-            int frameWidth = getWidth();
-            int frameHeight = getHeight();
-            int x = (screenWidth - frameWidth) / 2;
-            int y = (screenHeight - frameHeight) / 2;
 
-            // Set the location of the frame
-            setLocation(x, y);
-
-            // ...
-        }
-        
+		public void setWelcomepage(WelcomePage welcomepage) {
+			this.welcomepage = welcomepage;
+		}
+		//============================================
       
-        
-        
-        private class HomeButtonListener implements ActionListener{ //back to the home page
+
+		
+
+		private class HomeButtonListener implements ActionListener{ //back to the home page
     		
         	public void actionPerformed(ActionEvent e) {
         		
@@ -288,25 +240,18 @@ public class SudokuMain extends JFrame {
             }
     		
     	}
-        
-        
-        
-     
     
     }
     
     
     public static void main(String[] args) {
+    	
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new SudokuMain();
             }
-        });
-        
-        
+        }); 
     }
+    
+    
 }
-
-    
-
-    
