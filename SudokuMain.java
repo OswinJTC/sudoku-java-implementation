@@ -41,7 +41,7 @@ public class SudokuMain extends JFrame {
     				
     			}else if(get_command.equals("Hard")){
     				System.out.println("Hard button clicked(for debugging)");
-    				GamePageMain gamePage = new GamePageMain(welcomePage,75, 40, 2); //hard game => 75 empty cells
+    				GamePageMain gamePage = new GamePageMain(welcomePage,75, 480, 2); //hard game => 75 empty cells
     				add(gamePage);
     				
     			}
@@ -82,36 +82,44 @@ public class SudokuMain extends JFrame {
         	setTitle("Sudoku Warriors");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setSize(500, 500);
+            
+  
       
          
         	
             // Set up the components
             JLabel nameLabel = new JLabel("Sudoku Warriors");
-            nameLabel.setFont(new Font("Arial", Font.BOLD, 36));
+            nameLabel.setFont(new Font("Lato", Font.BOLD, 46));
             nameLabel.setHorizontalAlignment(JLabel.CENTER);
             nameLabel.setForeground(Color.BLACK);
+        
             
-            JLabel quoteLabel = new JLabel("Try the Numbers Game, Minus the Math");
-            quoteLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+            
+            
+            JLabel quoteLabel = new JLabel("\"Try the Numbers Game, Minus the Math\"");
+            quoteLabel.setFont(new Font("Bebas Neue", Font.PLAIN, 18));
             quoteLabel.setHorizontalAlignment(JLabel.CENTER);
             quoteLabel.setForeground(Color.BLACK);
             
             easyButton = new JButton("Easy");
-            easyButton.setBackground(Color.PINK);
+            easyButton.setBackground(new Color(210, 180, 140));
             easyButton.setForeground(Color.BLACK);
-            easyButton.setFont(new Font("Arial", Font.BOLD, 18));
+            easyButton.setOpaque(true);
+            easyButton.setFont(new Font("Arial", Font.BOLD, 24));
             easyButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
             
             mediumButton = new JButton("Medium");
-            mediumButton.setBackground(new Color(51, 51, 51)); // dark gray
-            //mediumButton.setForeground(Color.BLACK);
-            mediumButton.setFont(new Font("Arial", Font.BOLD, 18));
+            mediumButton.setBackground(new Color(210, 180, 140)); // dark gray
+     
+            mediumButton.setOpaque(true);
+            mediumButton.setFont(new Font("Arial", Font.BOLD, 24));
             mediumButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
             
             hardButton = new JButton("Hard");
-            hardButton.setBackground(new Color(255, 174, 66)); // dark gray
-            //hardButton.setForeground(Color.BLACK);
-            hardButton.setFont(new Font("Arial", Font.BOLD, 18));
+            hardButton.setPreferredSize(new Dimension(20, 20));
+            hardButton.setBackground(new Color(210, 180, 140)); // dark gray          
+            hardButton.setOpaque(true);
+            hardButton.setFont(new Font("Arial", Font.BOLD, 24));
             hardButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
             
             
@@ -120,7 +128,8 @@ public class SudokuMain extends JFrame {
             
             JPanel panel = new JPanel(new GridLayout(5, 1, 10, 10));
             panel.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 20));
-            panel.setOpaque(false); // make the panel transparent
+            panel.setBackground(new Color(255, 235, 205));
+            panel.setOpaque(true); // make the panel transparent
             panel.add(nameLabel);
             panel.add(quoteLabel);
             panel.add(easyButton);

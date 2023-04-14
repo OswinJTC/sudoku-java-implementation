@@ -69,7 +69,7 @@ public class CountdownClock extends JPanel {
             		 for (int row = 0; row < 9; ++row) { //使格子有意義了，數字、顏色
             	         for (int col = 0; col < 9; ++col) {
             	        	 
-            	        	 if(gameboard.cells[row][col].getBackground() != Color.RED && gameboard.cells[row][col].getBackground() != Color.GREEN) {
+            	        	 if(gameboard.cells[row][col].getBackground() != new Color(216, 0, 0)&& gameboard.cells[row][col].getBackground() != new Color(0, 216, 0)) {
             	        		    to_store_color[row][col] = gameboard.cells[row][col].getBackground();
             	        		} else {
             	        		    to_store_color[row][col] = Color.YELLOW;
